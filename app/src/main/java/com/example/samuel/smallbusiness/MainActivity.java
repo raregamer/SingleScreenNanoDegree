@@ -1,5 +1,7 @@
 package com.example.samuel.smallbusiness;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     ImageView facebook;
     ImageView email;
     ImageView twitter;
+    String facebookLink = "http://www.facebook.com";
+    String twitterLink = "http://www.twitter.com";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,16 @@ public class MainActivity extends AppCompatActivity {
         facebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Facebook button in beta.", Toast.LENGTH_SHORT).show();
+
+                Intent fb = new Intent(Intent.ACTION_VIEW);
+                fb.setData(Uri.parse(facebookLink));
+
+                if(fb.resolveActivity(getPackageManager()) != null) {
+                    startActivity(fb);
+                } else {
+                    Toast.makeText(MainActivity.this,"Please install a web browser.", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
@@ -39,7 +52,14 @@ public class MainActivity extends AppCompatActivity {
         twitter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Twitter button in beta.", Toast.LENGTH_SHORT).show();
+
+                Intent tweet = new Intent(Intent.ACTION_VIEW);
+                tweet.setData(Uri.parse(twitterLink));
+                if(tweet.resolveActivity(getPackageManager()) != null) {
+                    startActivity(tweet);
+                } else {
+                    Toast.makeText(MainActivity.this,"Please install a web browser.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
